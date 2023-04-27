@@ -66,8 +66,6 @@ END_VAR
 		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stLights.stLighting.nLight), SIZEOF(House.stFloorOne.stLights.stLighting.nLight), E_IotCommunicatorDatatype.type_INT);
 	ELSIF fbIot.fbCommand.sVarName = 'stLights.stLighting.sMode' THEN
 		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stLights.stLighting.sMode), SIZEOF(House.stFloorOne.stLights.stLighting.sMode), E_IotCommunicatorDatatype.type_STRING);
-	ELSE
-		RETURN;
 	END_IF
 	fbIot.SendData(ADR(House.stFloorOne), SIZEOF(House.stFloorOne));
 	fbIot.fbCommand.Remove();
@@ -90,8 +88,6 @@ END_VAR
 
 	IF fbIot.fbCommand.sVarName = 'stRoomOne.Projector' THEN
 		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stRoomOne.Projector), SIZEOF(House.stFloorOne.stRoomOne.Projector), E_IotCommunicatorDatatype.type_BOOL);
-	ELSE
-		RETURN;
 	END_IF
 	
 	IF fbIot.fbCommand.sVarName = 'stRoomOne.ConTemp' THEN
@@ -121,13 +117,14 @@ END_IF]]></ST>
     </LineIds>
     <LineIds Name="MAIN.Lighting">
       <LineId Id="6" Count="2" />
-      <LineId Id="32" Count="14" />
+      <LineId Id="32" Count="5" />
+      <LineId Id="40" Count="6" />
       <LineId Id="26" Count="0" />
       <LineId Id="24" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.Room_One">
       <LineId Id="6" Count="4" />
-      <LineId Id="15" Count="2" />
+      <LineId Id="17" Count="0" />
       <LineId Id="20" Count="0" />
       <LineId Id="22" Count="1" />
       <LineId Id="21" Count="0" />
