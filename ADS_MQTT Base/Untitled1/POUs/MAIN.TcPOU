@@ -7,8 +7,8 @@ VAR
 	// Declare FB_IotCommunicator
 	fbIot : FB_IotCommunicator := (sHostName := 'iot.beckhoff.us',
 									nPort := 1883,
-									sMainTopic := 'Test',
-									sDeviceName := 'Automated Building',
+									sMainTopic := 'Mike',
+									sDeviceName := 'Mikes_Automated_Building',
 									sDeviceIcon := 'House');
 	
 	// Timer to send data only once per second
