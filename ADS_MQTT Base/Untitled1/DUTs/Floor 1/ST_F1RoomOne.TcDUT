@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_F1RoomOne" Id="{0d0306e4-1123-4389-9baf-8826a9c05f0c}">
+    <Declaration><![CDATA[TYPE ST_F1RoomOne :
+STRUCT
+	
+	{attribute 'iot.DisplayName' := 'Projector'}
+	 Projector : BOOL;
+	 
+	 
+	 {attribute 'iot.NestedStructIcon' := 'Temperature'}
+	 {attribute 'iot.Unit' := 'F'}
+	 {attribute 'iot.DisplayName' := 'Temperature'}
+	 {attribute 'iot.DecimalPrecision' := '2'}
+	 {attribute 'iot.MinValue' := '60'} {attribute 'iot.MaxValue' := '90'}
+	 {attribute 'iot.ReadOnly' := 'TRUE'}
+	 ConTemp : LREAL := 75.2; 
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="St_Building" Id="{14e2e3c3-a17c-4184-b996-806466b7c445}">
+    <Declaration><![CDATA[TYPE St_Building :
+STRUCT
+
+	{attribute 'iot.NestedStructIcon' := 'Floor'}
+	{attribute 'iot.DisplayName' := 'Floor One'}	
+	stFloorOne	: ST_FloorOne;
+
+	{attribute 'iot.NestedStructIcon' := 'Floor'}
+	{attribute 'iot.DisplayName' := 'Floor Two'}
+	stFloorTwo  : ST_FLoorTwo; 
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
