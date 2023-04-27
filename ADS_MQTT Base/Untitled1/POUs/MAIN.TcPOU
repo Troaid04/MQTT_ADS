@@ -94,7 +94,7 @@ END_VAR
 		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stRoomOne.ConTemp), SIZEOF(House.stFloorOne.stRoomOne.ConTemp), E_IotCommunicatorDatatype.type_LREAL);
 	END_IF
 	
-	fbIot.SendData(ADR(House.stFloorOne), SIZEOF(House.stFloorOne));
+	fbIot.SendData(ADR(House.stRoomOne), SIZEOF(House.stRoomOne));
 	fbIot.fbCommand.Remove();
 END_IF]]></ST>
       </Implementation>

@@ -4,6 +4,7 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 		stFloorOne	: ST_FloorOne;
+		stRoomOne   : ST_RoomOne;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
