@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{44b9cdcb-0c7c-4675-bb09-0840c2c77ec3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+	// Declare FB_IotCommunicator
+	fbIot : FB_IotCommunicator := (sHostName := 'iot.beckhoff.us',
+									nPort := 1883,
+									sMainTopic := 'Test',
+									sDeviceName := 'Automated Building',
+									sDeviceIcon := 'House');
+	
+	// Timer to send data only once per second
+	timer : TON;
+	
+	
+	
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// .Execute() has to be called cyclically
+fbIot.Execute(TRUE);
+
+// Start timer when fbIot is connected
+IF fbIot.bConnected THEN
+	timer(IN := TRUE, PT := T#500MS);
+END_IF
+
+
+// Send data, if timer is expired
+IF timer.Q THEN
+	timer(IN := FALSE);
+	fbIot.SendData(ADR(House.stFloorOne), SIZEOF(House.stFloorOne));
+END_IF
+
+
+
+Lighting(); 
+Constants();
+Room_One(); 
+
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="Lighting" Id="{f962bd32-f177-4d94-a573-5170c5142db5}">
+      <Declaration><![CDATA[METHOD Lighting 
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF fbIot.fbCommand.bAvailable THEN
+	// Receive data for first level struct
+
+	IF fbIot.fbCommand.sVarName = 'stLights.stLighting.bLight' THEN
+		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stLights.stLighting.bLight), SIZEOF(House.stFloorOne.stLights.stLighting.bLight), E_IotCommunicatorDatatype.type_BOOL);
+	ELSIF fbIot.fbCommand.sVarName = 'stLights.stLighting.nLight' THEN
+		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stLights.stLighting.nLight), SIZEOF(House.stFloorOne.stLights.stLighting.nLight), E_IotCommunicatorDatatype.type_INT);
+	ELSIF fbIot.fbCommand.sVarName = 'stLights.stLighting.sMode' THEN
+		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stLights.stLighting.sMode), SIZEOF(House.stFloorOne.stLights.stLighting.sMode), E_IotCommunicatorDatatype.type_STRING);
+	ELSE
+		RETURN;
+	END_IF
+	fbIot.SendData(ADR(House.stFloorOne), SIZEOF(House.stFloorOne));
+	fbIot.fbCommand.Remove();
+END_IF
+
+//Lighting Sample 2
+House.stFloorOne.stLights.stLighting.aModes[0]:='Automatic';
+House.stFloorOne.stLights.stLighting.aModes[1]:='Manual';
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Room_One" Id="{7de3a368-7e3a-4ce6-9c00-29fa850e5b79}">
+      <Declaration><![CDATA[METHOD Room_One 
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF fbIot.fbCommand.bAvailable THEN
+	// Receive data for first level struct
+
+	IF fbIot.fbCommand.sVarName = 'stRoomOne.Projector' THEN
+		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stRoomOne.Projector), SIZEOF(House.stFloorOne.stRoomOne.Projector), E_IotCommunicatorDatatype.type_BOOL);
+	ELSE
+		RETURN;
+	END_IF
+	
+	IF fbIot.fbCommand.sVarName = 'stRoomOne.ConTemp' THEN
+		fbIot.fbCommand.GetValue(ADR(House.stFloorOne.stRoomOne.ConTemp), SIZEOF(House.stFloorOne.stRoomOne.ConTemp), E_IotCommunicatorDatatype.type_LREAL);
+	END_IF
+	
+	fbIot.SendData(ADR(House.stFloorOne), SIZEOF(House.stFloorOne));
+	fbIot.fbCommand.Remove();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="MAIN">
+      <LineId Id="21" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="23" Count="3" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="44" Count="2" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="30" Count="1" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="33" Count="1" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="35" Count="8" />
+      <LineId Id="27" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.Lighting">
+      <LineId Id="6" Count="2" />
+      <LineId Id="32" Count="14" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="24" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.Room_One">
+      <LineId Id="6" Count="4" />
+      <LineId Id="15" Count="2" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

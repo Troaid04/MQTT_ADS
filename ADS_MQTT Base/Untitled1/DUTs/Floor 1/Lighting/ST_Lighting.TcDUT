@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_Lighting" Id="{46cf3a72-2aaf-479e-9eb5-69cd4ccfcecd}">
+    <Declaration><![CDATA[TYPE ST_Lighting :
+STRUCT
+	
+	{attribute 'iot.ReadOnly' := 'false'}
+	{attribute 'iot.DisplayName' := 'Floor Lighting'}
+	{attribute 'iot.WidgetType' := 'Lighting'}
+	{attribute 'iot.LightValueVisible' := 'false'}
+	{attribute 'iot.LightSliderVisible' := 'true'}
+	{attribute 'iot.LightModeVisible' := 'true'}
+	{attribute 'iot.LightModeChangeable' := 'true'}
+	stLighting	: ST_LightingTemplate;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
